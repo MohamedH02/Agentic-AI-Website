@@ -1382,6 +1382,11 @@ async function runAgent(){
   const OUT = document.getElementById('demo-output');
 
   // Render one structured event from the backend as a step card
+  // tracks the last card per type for text accumulation
+  let _lastCard = {};
+
+  function resetCards(){ _lastCard = {}; }
+
   function renderEvent(ev){
     const META = {
       thought:      {cls:'card-thought', icon:'💭', label:'Thought'},
@@ -1390,9 +1395,46 @@ async function runAgent(){
       final_answer: {cls:'card-answer',  icon:'🎯', label:'Final Answer'},
     };
     const m = META[ev.type] || {cls:'', icon:'…', label:'Processing'};
-    const body = ev.type === 'action'
-      ? `<div class="rsc-code-block">${esc(ev.tool)}(${esc(JSON.stringify(ev.input))})</div>`
-      : `<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
+
+    // ── Skip malformed action events (token-by-token partial arrivals) ──
+    if(ev.type === 'action' && (!ev.tool || ev.tool.trim() === '')) return;
+
+    // ── Thought / Final Answer: accumulate tokens into ONE card ──────────
+    if(ev.type === 'thought' || ev.type === 'final_answer'){
+      let card = _lastCard[ev.type];
+      if(!card || !card.isConnected){
+        const uid = `evc-${ev.type}-${Date.now()}`;
+        OUT.insertAdjacentHTML('beforeend',
+          `<div id="${uid}" class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
+             <div class="rsc-header">
+               <span class="rsc-icon">${m.icon}</span>
+               <span class="rsc-label">${m.label}</span>
+             </div>
+             <div class="rsc-body evc-body"></div>
+           </div>`);
+        card = document.getElementById(uid);
+        _lastCard[ev.type] = card;
+      }
+      const body = card.querySelector('.evc-body');
+      if(body && ev.content) body.textContent += ev.content;
+      if(ev.type === 'final_answer') setStatus('Complete ✓','done');
+      card.scrollIntoView({behavior:'smooth', block:'nearest'});
+      return;
+    }
+
+    // ── Observation resets the thought accumulator (new cycle starts) ────
+    if(ev.type === 'observation') delete _lastCard['thought'];
+
+    // ── Action: render tool call ─────────────────────────────────────────
+    let body;
+    if(ev.type === 'action'){
+      const hasArgs = ev.input && Object.keys(ev.input).length > 0;
+      const argsStr = hasArgs ? JSON.stringify(ev.input) : '…';
+      body = `<div class="rsc-code-block">${esc(ev.tool)}(${esc(argsStr)})</div>`;
+    } else {
+      body = `<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
+    }
+
     OUT.insertAdjacentHTML('beforeend',
       `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
          <div class="rsc-header">
@@ -1401,10 +1443,10 @@ async function runAgent(){
          </div>${body}
        </div>`);
     OUT.lastElementChild.scrollIntoView({behavior:'smooth', block:'nearest'});
-    if(ev.type === 'final_answer') setStatus('Complete ✓','done');
   }
 
   try{
+    resetCards();
     // Show typing indicator
     OUT.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Connecting to agent…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
 
