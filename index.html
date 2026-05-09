@@ -508,6 +508,56 @@ strong{color:var(--ink)}
 .react-gif-wrap{margin:2rem 0 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--rule);position:relative;max-width:700px}
 .react-gif{width:100%;display:block}
 .react-gif-credit{position:absolute;bottom:0;right:0;background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:.62rem;padding:.18rem .55rem;border-radius:var(--radius) 0 0 0;letter-spacing:.03em}
+/* ── Demo how-to guide ─────────────────────────────────────────────────────── */
+.demo-guide{margin-bottom:1.5rem;border:1px solid var(--rule);border-radius:var(--radius-lg);overflow:hidden;background:rgba(255,255,255,.45);backdrop-filter:blur(14px)}
+.demo-guide>summary{padding:.8rem 1.4rem;font-size:.82rem;font-weight:700;color:var(--ink-soft);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.5rem;user-select:none}
+.demo-guide>summary::-webkit-details-marker{display:none}
+.demo-guide[open]>summary{border-bottom:1px solid var(--rule)}
+.demo-guide-body{padding:1.2rem 1.6rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:900px){.demo-guide-body{grid-template-columns:1fr}}
+.guide-steps{display:flex;flex-direction:column;gap:.7rem}
+.guide-step{display:flex;gap:.65rem;align-items:flex-start}
+.gs-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.72rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.guide-step div{font-size:.8rem;color:var(--ink-soft);line-height:1.6}
+.guide-step strong{color:var(--ink)}
+.guide-right{display:flex;flex-direction:column;gap:.8rem}
+.guide-legend{display:flex;flex-direction:column;gap:.35rem;padding:.7rem 1rem;background:var(--paper-2);border-radius:8px;border:1px solid var(--rule)}
+.guide-legend-title{font-size:.7rem;font-weight:700;color:var(--ink-mute);margin-bottom:.2rem;text-transform:uppercase;letter-spacing:.05em}
+.gl-item{font-size:.76rem;padding:.18rem .45rem;border-radius:5px;font-weight:600}
+.gl-item.thought{color:var(--accent)}.gl-item.action{color:var(--accent2)}.gl-item.obs{color:var(--green)}.gl-item.answer{color:var(--gold)}
+.guide-notice{font-size:.75rem;background:rgba(255,180,50,.08);border:1px solid rgba(255,180,50,.3);border-radius:8px;padding:.65rem .9rem;color:var(--ink-soft);line-height:1.6}
+.guide-notice strong{color:var(--ink)}
+/* ── Toggle switch ─────────────────────────────────────────────────────────── */
+.options-group{display:flex;flex-direction:column;gap:.5rem}
+.toggle-row-item{display:flex;flex-direction:column;gap:.1rem}
+.toggle-label{display:flex;align-items:center;gap:.55rem;cursor:pointer;font-size:.82rem;color:var(--ink-soft);user-select:none}
+input.toggle-inp{position:absolute;opacity:0;width:0;height:0}
+.toggle-sw{position:relative;width:34px;height:18px;flex-shrink:0;display:inline-block}
+.toggle-sw::before{content:'';position:absolute;inset:0;background:var(--rule-strong);border-radius:9px;transition:.2s}
+.toggle-sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+input.toggle-inp:checked+.toggle-sw::before{background:var(--accent)}
+input.toggle-inp:checked+.toggle-sw::after{transform:translateX(16px)}
+.toggle-desc{font-size:.69rem;color:var(--ink-mute);padding-left:44px;line-height:1.4;margin-top:-.05rem}
+/* ── Demo right column ─────────────────────────────────────────────────────── */
+.demo-right-col{display:flex;flex-direction:column;gap:.9rem;min-width:0}
+/* ── Comparison panels ─────────────────────────────────────────────────────── */
+.compare-row{display:none;grid-template-columns:1fr 1fr;gap:.8rem}
+.compare-row.visible{display:grid}
+.compare-panel{background:rgba(255,255,255,.5);border:1px solid var(--rule);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;backdrop-filter:blur(14px)}
+.cpanel-header{padding:.65rem 1.1rem;border-bottom:1px solid var(--rule);font-size:.76rem;font-weight:700}
+.cpanel-header.plain{color:var(--ink-mute)}.cpanel-header.agent{color:var(--accent)}
+.compare-output{flex:1;padding:.9rem;min-height:280px;overflow-y:auto;display:flex;flex-direction:column;gap:.6rem}
+/* ── Follow-up input ─────────────────────────────────────────────────────── */
+.followup-wrap{background:rgba(255,255,255,.5);border:1px solid var(--rule);border-radius:var(--radius-lg);padding:1rem 1.2rem;backdrop-filter:blur(14px)}
+.followup-label{font-size:.74rem;font-weight:700;color:var(--accent);display:block;margin-bottom:.45rem}
+.followup-row{display:flex;gap:.5rem;align-items:flex-end}
+.followup-row .dc-ta{flex:1;margin:0;min-height:60px}
+.followup-btn{width:42px;height:42px;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:1.15rem;cursor:pointer;flex-shrink:0;transition:all .2s}
+.followup-btn:hover{background:var(--accent2)}
+.followup-footer{display:flex;align-items:center;gap:.7rem;margin-top:.4rem}
+.followup-turn{font-size:.68rem;color:var(--ink-mute)}
+.followup-clear{background:none;border:none;font-size:.72rem;color:var(--ink-mute);cursor:pointer;text-decoration:underline;padding:0}
+.followup-clear:hover{color:#e06c75}
 /* ── Stop / run row ───────────────────────────────────────────────────────── */
 .run-row{display:flex;gap:.6rem;align-items:stretch}
 .run-row .run-btn{flex:1}
@@ -973,6 +1023,27 @@ strong{color:var(--ink)}
     <div class="sec-tag">08 — Live Demo</div>
     <h2 class="sec-h2">Watch an Agent <span class="cyan">Think in Real-Time</span></h2>
     <p class="sec-p">A real AI model running the ReAct loop. Watch it reason, act, observe, and reach a final answer — step by step, streaming live.</p>
+    <details class="demo-guide" open>
+      <summary>📖 How to use this demo</summary>
+      <div class="demo-guide-body">
+        <div class="guide-steps">
+          <div class="guide-step"><span class="gs-num">1</span><div><strong>Get a free API key</strong><br>Sign up at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — no credit card required. Paste it in the Key field and click Save.</div></div>
+          <div class="guide-step"><span class="gs-num">2</span><div><strong>Choose a model</strong><br>All listed models are free. If one returns a 429 or 404 error it's temporarily overloaded — switch to another. <em>OpenRouter Auto Free</em> picks automatically.</div></div>
+          <div class="guide-step"><span class="gs-num">3</span><div><strong>Enter a task</strong><br>Use a preset or write your own research question. The agent will search the web, run calculations, and reason step-by-step to answer it.</div></div>
+          <div class="guide-step"><span class="gs-num">4</span><div><strong>Read the trace</strong><br>Each card is one step of the ReAct loop. Hover the <strong>ⓘ</strong> icon on any card to understand what that step means. Enable options below for more features.</div></div>
+        </div>
+        <div class="guide-right">
+          <div class="guide-legend">
+            <div class="guide-legend-title">Card types</div>
+            <span class="gl-item thought">💭 Thought — model reasoning through the problem</span>
+            <span class="gl-item action">⚡ Action — tool being called (search, calculator…)</span>
+            <span class="gl-item obs">👁️ Observation — result returned by the tool</span>
+            <span class="gl-item answer">🎯 Final Answer — synthesised response in markdown</span>
+          </div>
+          <div class="guide-notice">⚠️ <strong>Model availability:</strong> Free models on OpenRouter share global capacity. If you see an error, wait 30 seconds and try again, or switch models. The <strong>OpenRouter Auto Free</strong> option in the dropdown automatically routes to whichever free model is currently available.</div>
+        </div>
+      </div>
+    </details>
     <div class="demo-wrap">
       <div class="demo-config">
         <div class="dc-group"><label class="dc-label">🔑 OpenRouter API Key</label><div class="key-row"><input type="password" id="api-key-input" class="dc-input key-inp" placeholder="sk-or-v1-…"/><button class="key-eye" onclick="toggleKey()">👁</button><button class="key-save" onclick="saveKey()">Save</button></div><div class="key-hint" id="key-hint">Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — set a $5 spending limit.</div></div>
@@ -993,12 +1064,47 @@ Available tools:
 • calculator(expression)   — safe math evaluator
 • code_executor(lang,code) — run code in a sandbox (Python, JS, etc.)</div>
         </details>
+        <div class="dc-group">
+          <label class="dc-label">⚙️ Options</label>
+          <div class="options-group">
+            <div class="toggle-row-item">
+              <label class="toggle-label"><input class="toggle-inp" type="checkbox" id="compare-toggle"><span class="toggle-sw"></span>Before/After Comparison</label>
+              <div class="toggle-desc">Run the same task with and without tools side by side to see why agents matter</div>
+            </div>
+            <div class="toggle-row-item">
+              <label class="toggle-label"><input class="toggle-inp" type="checkbox" id="memory-toggle" checked><span class="toggle-sw"></span>Memory Across Turns</label>
+              <div class="toggle-desc">Keep conversation context so you can ask follow-up questions after each run</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="demo-output-wrap">
+      <div class="demo-right-col">
+      <div class="demo-output-wrap" id="demo-output-wrap">
         <div class="do-header"><span class="do-title">Agent Execution Trace</span><span class="do-status" id="do-status">Ready</span></div>
         <div class="demo-output" id="demo-output">
           <div class="do-placeholder"><div class="do-pulse"><div class="do-ring"></div><span class="do-icon">🤖</span></div><p>Set your API key and press <strong>Run Agent</strong> to watch the ReAct loop execute with a real AI model.</p><p class="do-note">Free models available — no credit card required on OpenRouter.</p></div>
         </div>
+      </div>
+      <div class="compare-row" id="compare-row">
+        <div class="compare-panel">
+          <div class="cpanel-header plain">💬 Without Tools — Direct LLM</div>
+          <div class="compare-output" id="plain-output"></div>
+        </div>
+        <div class="compare-panel">
+          <div class="cpanel-header agent">🤖 With Agent + Tools — ReAct</div>
+          <div class="compare-output" id="agent-output"></div>
+        </div>
+      </div>
+      <div class="followup-wrap" id="followup-wrap" style="display:none">
+        <span class="followup-label">💬 Follow-up <span class="followup-turn" id="followup-turn"></span></span>
+        <div class="followup-row">
+          <textarea id="followup-inp" class="dc-input dc-ta" rows="2" placeholder="Ask a follow-up question about the answer above…"></textarea>
+          <button class="followup-btn" onclick="submitFollowup()" title="Send follow-up">↪</button>
+        </div>
+        <div class="followup-footer">
+          <button class="followup-clear" onclick="clearHistory()">✕ Start fresh new conversation</button>
+        </div>
+      </div>
       </div>
     </div>
     <div class="demo-disclaimer">🔐 Your API key is saved only in your browser's local storage and is sent exclusively to OpenRouter's servers.</div>
@@ -1426,9 +1532,129 @@ function renderOut(secs,streaming){
 }
 function setStatus(t,tp){const e=document.getElementById('do-status');if(e){e.textContent=t;e.className='do-status '+(tp||'');}}
 
-let _abortCtrl = null;
-function stopAgent(){
-  if(_abortCtrl){ _abortCtrl.abort(); _abortCtrl = null; }
+let _abortCtrl=null, conversationHistory=[], _finalAnswerText='';
+
+function stopAgent(){if(_abortCtrl){_abortCtrl.abort();_abortCtrl=null;}}
+
+function clearHistory(){
+  conversationHistory=[];_finalAnswerText='';
+  const fw=document.getElementById('followup-wrap');if(fw)fw.style.display='none';
+  const out=document.getElementById('demo-output');
+  if(out)out.innerHTML=`<div class="do-placeholder"><div class="do-pulse"><div class="do-ring"></div><span class="do-icon">🤖</span></div><p>Start a new task above.</p></div>`;
+}
+
+function submitFollowup(){
+  const txt=document.getElementById('followup-inp')?.value.trim();
+  if(!txt)return;
+  document.getElementById('followup-inp').value='';
+  document.getElementById('task-inp').value=txt;
+  runAgent();
+}
+
+function showFollowup(turns){
+  const fw=document.getElementById('followup-wrap');if(fw)fw.style.display='block';
+  const tc=document.getElementById('followup-turn');
+  if(tc)tc.textContent=turns>1?`(Turn ${turns})`: '';
+}
+
+async function runWithoutTools(task,key,model,signal,container){
+  container.innerHTML='';
+  const card=document.createElement('div');
+  card.className='react-step-card';card.style.cssText='border-left-color:var(--ink-mute);animation:cardIn .35s ease';
+  card.innerHTML=`<div class="rsc-header"><span class="rsc-icon">💬</span><span class="rsc-label" style="color:var(--ink-mute)">Direct LLM — no tools</span></div><div class="rsc-body evc-body" style="white-space:pre-wrap"></div>`;
+  container.appendChild(card);
+  const body=card.querySelector('.evc-body');
+  let full='',buf='';
+  try{
+    const res=await fetch('https://openrouter.ai/api/v1/chat/completions',{
+      method:'POST',signal,
+      headers:{'Authorization':`Bearer ${key}`,'Content-Type':'application/json','HTTP-Referer':window.location.href},
+      body:JSON.stringify({model,max_tokens:1024,stream:true,messages:[{role:'user',content:task}]})
+    });
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const reader=res.body.getReader(),decoder=new TextDecoder();
+    while(true){
+      const{done,value}=await reader.read();if(done)break;
+      buf+=decoder.decode(value,{stream:true});
+      const lines=buf.split('\n');buf=lines.pop()||'';
+      for(const line of lines){
+        const t=line.trim();if(!t||t==='data: [DONE]'||!t.startsWith('data: '))continue;
+        try{const j=JSON.parse(t.slice(6));const d=j?.choices?.[0]?.delta?.content;if(d){full+=d;body.textContent=full;body.scrollIntoView({behavior:'smooth',block:'nearest'});}}catch(_){}
+      }
+    }
+    if(typeof marked!=='undefined'&&full){body.innerHTML=marked.parse(full,{breaks:true,gfm:true});body.classList.add('md-body');}
+  }catch(err){
+    if(err.name!=='AbortError')body.innerHTML=`<span style="color:var(--red)">${esc(err.message)}</span>`;
+  }
+}
+
+async function runWithAgentStream(task,key,model,BACKEND,container,history){
+  const TIPS={thought:'The model is reasoning through the problem before acting',action:'The model decided to call a tool to get real-world information',observation:'The result returned by the tool — fed back into the model',final_answer:"The model's synthesised answer after completing all reasoning steps"};
+  let _lastCard={},_step=0;_finalAnswerText='';
+
+  function renderEvent(ev){
+    const META={thought:{cls:'card-thought',icon:'💭',label:'Thought'},action:{cls:'card-action',icon:'⚡',label:'Action'},observation:{cls:'card-obs',icon:'👁️',label:'Observation'},final_answer:{cls:'card-answer',icon:'🎯',label:'Final Answer'}};
+    const m=META[ev.type]||{cls:'',icon:'…',label:'Processing'};
+    const tip=TIPS[ev.type]||'';
+    const tipHtml=tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:'';
+
+    if(ev.type==='reclassify_last'){
+      const card=_lastCard['thought'];
+      if(card&&card.isConnected){
+        card.classList.remove('card-thought');card.classList.add('card-answer');
+        const icon=card.querySelector('.rsc-icon'),label=card.querySelector('.rsc-label');
+        if(icon)icon.textContent='🎯';if(label)label.textContent='Final Answer';
+        const body=card.querySelector('.evc-body');
+        if(body&&typeof marked!=='undefined'){_finalAnswerText=body.textContent;body.innerHTML=marked.parse(_finalAnswerText,{breaks:true,gfm:true});body.classList.add('md-body');}
+        const hdr=card.querySelector('.rsc-header');
+        if(hdr){const cb=document.createElement('button');cb.className='copy-btn';cb.textContent='⎘ Copy';cb.onclick=()=>{navigator.clipboard.writeText(_finalAnswerText).then(()=>{cb.textContent='✓ Copied';cb.classList.add('copied');setTimeout(()=>{cb.textContent='⎘ Copy';cb.classList.remove('copied');},2000);});};hdr.appendChild(cb);}
+        _lastCard['final_answer']=card;delete _lastCard['thought'];
+      }
+      setStatus('Complete ✓','done');return;
+    }
+    if(ev.type==='action'&&(!ev.tool||ev.tool.trim()===''))return;
+    if(ev.type==='action'){_step++;setStatus(`Running · Step ${_step}`,'running');}
+
+    if(ev.type==='thought'||ev.type==='final_answer'){
+      let card=_lastCard[ev.type];
+      if(!card||!card.isConnected){
+        const uid=`evc-${ev.type}-${Date.now()}`;
+        container.insertAdjacentHTML('beforeend',`<div id="${uid}" class="react-step-card ${m.cls}" style="animation:cardIn .35s ease"><div class="rsc-header"><span class="rsc-icon">${m.icon}</span><span class="rsc-label">${m.label}</span>${tipHtml}</div><div class="rsc-body evc-body"></div></div>`);
+        card=document.getElementById(uid);_lastCard[ev.type]=card;
+      }
+      const body=card.querySelector('.evc-body');
+      if(body&&ev.content)body.textContent+=ev.content;
+      if(ev.type==='final_answer')setStatus('Complete ✓','done');
+      card.scrollIntoView({behavior:'smooth',block:'nearest'});return;
+    }
+
+    if(ev.type==='observation'){
+      delete _lastCard['thought'];
+      const full=esc(ev.content||'');const preview=full.length>220?full.slice(0,220)+'…':full;const hasMore=full.length>220;const uid=`obs-${Date.now()}`;
+      container.insertAdjacentHTML('beforeend',`<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease"><div class="rsc-header"><span class="rsc-icon">${m.icon}</span><span class="rsc-label">${m.label}</span>${tipHtml}</div><div class="rsc-body"><span class="obs-preview">${preview}</span>${hasMore?`<div class="obs-full" id="${uid}-f">${full}</div><button class="obs-toggle" onclick="var f=document.getElementById('${uid}-f');f.classList.toggle('open');this.textContent=f.classList.contains('open')?'▲ Show less':'▼ Show full result';">▼ Show full result</button>`:''}</div></div>`);
+      container.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'});return;
+    }
+
+    let body;
+    if(ev.type==='action'){const hasArgs=ev.input&&Object.keys(ev.input).length>0;body=`<div class="rsc-code-block">${esc(ev.tool)}(${esc(hasArgs?JSON.stringify(ev.input):'…')})</div>`;}
+    else{body=`<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;}
+    container.insertAdjacentHTML('beforeend',`<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease"><div class="rsc-header"><span class="rsc-icon">${m.icon}</span><span class="rsc-label">${m.label}</span>${tipHtml}</div>${body}</div>`);
+    container.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+
+  const res=await fetch(BACKEND,{method:'POST',signal:_abortCtrl?.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({task,api_key:key,model,max_tokens:1024,history})});
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.detail||`Server error: HTTP ${res.status}`);}
+  let firstEvent=true,buf='';
+  const reader=res.body.getReader(),decoder=new TextDecoder();
+  while(true){
+    const{done,value}=await reader.read();if(done)break;
+    buf+=decoder.decode(value,{stream:true});
+    const lines=buf.split('\n\n');buf=lines.pop()||'';
+    for(const line of lines){
+      if(!line.startsWith('data: '))continue;
+      try{const ev=JSON.parse(line.slice(6));if(ev.type==='done')break;if(ev.type==='error')throw new Error(ev.message);if(firstEvent){container.innerHTML='';firstEvent=false;}renderEvent(ev);}catch(e){if(e.message)throw e;}
+    }
+  }
 }
 
 async function runAgent(){
@@ -1440,192 +1666,53 @@ async function runAgent(){
   const task=document.getElementById('task-inp')?.value.trim();
   if(!task){alert('Enter a task first, or select a preset.');return;}
   isRunning=true;
-  const btn=document.getElementById('run-btn');
-  const stopBtn=document.getElementById('stop-btn');
+  const btn=document.getElementById('run-btn'),stopBtn=document.getElementById('stop-btn');
   const ri=document.getElementById('run-icon'),rt=document.getElementById('run-text');
   if(btn)btn.disabled=true;if(ri)ri.textContent='⏳';if(rt)rt.textContent='Running…';
   if(stopBtn)stopBtn.classList.add('visible');
   setStatus('Running · Step 0','running');
-  renderOut([],true);
+  const fw=document.getElementById('followup-wrap');if(fw)fw.style.display='none';
 
-  // ── Backend URL: localhost in dev, Railway URL in production ──
-  const BACKEND = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-    ? 'http://localhost:8000/run'
-    : 'https://web-production-35721.up.railway.app/run';
+  const BACKEND=(window.location.hostname==='localhost'||window.location.hostname==='127.0.0.1')?'http://localhost:8000/run':'https://web-production-35721.up.railway.app/run';
+  const compareMode=document.getElementById('compare-toggle')?.checked;
+  const memoryMode=document.getElementById('memory-toggle')?.checked;
+  const normalWrap=document.getElementById('demo-output-wrap');
+  const compareRow=document.getElementById('compare-row');
+  const OUT=document.getElementById('demo-output');
+  const plainOut=document.getElementById('plain-output');
+  const agentOut=document.getElementById('agent-output');
+  const agentContainer=compareMode?agentOut:OUT;
 
-  const OUT = document.getElementById('demo-output');
-  let _lastCard = {}, _step = 0;
-
-  const TIPS = {
-    thought:     'The model is reasoning through the problem before acting',
-    action:      'The model decided to call a tool to get real information',
-    observation: 'The result returned by the tool — fed back to the model',
-    final_answer:'The model\'s synthesised answer after all reasoning steps',
-  };
-
-  function renderEvent(ev){
-    const META = {
-      thought:      {cls:'card-thought', icon:'💭', label:'Thought'},
-      action:       {cls:'card-action',  icon:'⚡', label:'Action'},
-      observation:  {cls:'card-obs',     icon:'👁️', label:'Observation'},
-      final_answer: {cls:'card-answer',  icon:'🎯', label:'Final Answer'},
-    };
-    const m = META[ev.type] || {cls:'', icon:'…', label:'Processing'};
-
-    // ── Reclassify: thought → final answer once stream ends ───────────────
-    if(ev.type === 'reclassify_last'){
-      const card = _lastCard['thought'];
-      if(card && card.isConnected){
-        card.classList.remove('card-thought'); card.classList.add('card-answer');
-        const icon=card.querySelector('.rsc-icon'), label=card.querySelector('.rsc-label');
-        if(icon)icon.textContent='🎯'; if(label)label.textContent='Final Answer';
-        // Render markdown
-        const body=card.querySelector('.evc-body');
-        if(body && typeof marked!=='undefined'){
-          const raw=body.textContent;
-          body.innerHTML=marked.parse(raw,{breaks:true,gfm:true});
-          body.classList.add('md-body');
-        }
-        // Add copy button
-        const hdr=card.querySelector('.rsc-header');
-        if(hdr){
-          const cb=document.createElement('button');
-          cb.className='copy-btn'; cb.textContent='⎘ Copy';
-          cb.onclick=()=>{
-            const text=card.querySelector('.evc-body')?.textContent||'';
-            navigator.clipboard.writeText(text).then(()=>{
-              cb.textContent='✓ Copied'; cb.classList.add('copied');
-              setTimeout(()=>{cb.textContent='⎘ Copy';cb.classList.remove('copied');},2000);
-            });
-          };
-          hdr.appendChild(cb);
-        }
-        _lastCard['final_answer']=card; delete _lastCard['thought'];
-      }
-      setStatus('Complete ✓','done'); return;
-    }
-
-    // ── Skip malformed/partial action events ──────────────────────────────
-    if(ev.type==='action' && (!ev.tool||ev.tool.trim()==='')) return;
-
-    // ── Step counter ──────────────────────────────────────────────────────
-    if(ev.type==='action'){_step++; setStatus(`Running · Step ${_step}`,'running');}
-
-    const tip = TIPS[ev.type]||'';
-
-    // ── Thought / Final Answer: stream tokens into one card ───────────────
-    if(ev.type==='thought'||ev.type==='final_answer'){
-      let card=_lastCard[ev.type];
-      if(!card||!card.isConnected){
-        const uid=`evc-${ev.type}-${Date.now()}`;
-        OUT.insertAdjacentHTML('beforeend',
-          `<div id="${uid}" class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
-             <div class="rsc-header">
-               <span class="rsc-icon">${m.icon}</span>
-               <span class="rsc-label">${m.label}</span>
-               ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
-             </div>
-             <div class="rsc-body evc-body"></div>
-           </div>`);
-        card=document.getElementById(uid); _lastCard[ev.type]=card;
-      }
-      const body=card.querySelector('.evc-body');
-      if(body&&ev.content) body.textContent+=ev.content;
-      if(ev.type==='final_answer') setStatus('Complete ✓','done');
-      card.scrollIntoView({behavior:'smooth',block:'nearest'}); return;
-    }
-
-    // ── Observation: collapsible (results can be very long) ───────────────
-    if(ev.type==='observation'){
-      delete _lastCard['thought'];
-      const full = esc(ev.content||'');
-      const preview = full.length>220 ? full.slice(0,220)+'…' : full;
-      const hasMore = full.length>220;
-      const uid = `obs-${Date.now()}`;
-      OUT.insertAdjacentHTML('beforeend',
-        `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
-           <div class="rsc-header">
-             <span class="rsc-icon">${m.icon}</span>
-             <span class="rsc-label">${m.label}</span>
-             ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
-           </div>
-           <div class="rsc-body">
-             <span class="obs-preview">${preview}</span>
-             ${hasMore?`<div class="obs-full" id="${uid}-full">${full}</div>
-               <button class="obs-toggle" onclick="
-                 var f=document.getElementById('${uid}-full');
-                 f.classList.toggle('open');
-                 this.textContent=f.classList.contains('open')?'▲ Show less':'▼ Show full result';
-               ">▼ Show full result</button>`:''}
-           </div>
-         </div>`);
-      OUT.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'}); return;
-    }
-
-    // ── Action card ───────────────────────────────────────────────────────
-    let body;
-    if(ev.type==='action'){
-      const hasArgs=ev.input&&Object.keys(ev.input).length>0;
-      body=`<div class="rsc-code-block">${esc(ev.tool)}(${esc(hasArgs?JSON.stringify(ev.input):'…')})</div>`;
-    } else {
-      body=`<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
-    }
-    OUT.insertAdjacentHTML('beforeend',
-      `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
-         <div class="rsc-header">
-           <span class="rsc-icon">${m.icon}</span>
-           <span class="rsc-label">${m.label}</span>
-           ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
-         </div>${body}
-       </div>`);
-    OUT.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(compareMode){
+    normalWrap.style.display='none';compareRow.classList.add('visible');
+    if(plainOut)plainOut.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>💬</span><span class="rsc-label">Direct LLM responding…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
+    if(agentOut)agentOut.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Agent thinking…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
+  }else{
+    normalWrap.style.display='';compareRow.classList.remove('visible');
+    renderOut([],true);
   }
 
   try{
-    _lastCard={}; _step=0;
-    _abortCtrl = new AbortController();
-    OUT.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Connecting to agent…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
-
-    const res = await fetch(BACKEND, {
-      method:'POST', signal:_abortCtrl.signal,
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({task,api_key:key,model,max_tokens:1024})
-    });
-    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.detail||`Server error: HTTP ${res.status}`);}
-
-    let firstEvent=true;
-    const reader=res.body.getReader(), decoder=new TextDecoder();
-    let buf='';
-    while(true){
-      const {done,value}=await reader.read(); if(done)break;
-      buf+=decoder.decode(value,{stream:true});
-      const lines=buf.split('\n\n'); buf=lines.pop()||'';
-      for(const line of lines){
-        if(!line.startsWith('data: ')) continue;
-        try{
-          const ev=JSON.parse(line.slice(6));
-          if(ev.type==='done') break;
-          if(ev.type==='error') throw new Error(ev.message);
-          if(firstEvent){OUT.innerHTML='';firstEvent=false;}
-          renderEvent(ev);
-        }catch(e){if(e.message) throw e;}
-      }
+    _abortCtrl=new AbortController();
+    const historyToSend=memoryMode?[...conversationHistory]:[];
+    if(compareMode){
+      await Promise.allSettled([runWithoutTools(task,key,model,_abortCtrl.signal,plainOut),runWithAgentStream(task,key,model,BACKEND,agentContainer,historyToSend)]);
+    }else{
+      agentContainer.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Connecting to agent…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
+      await runWithAgentStream(task,key,model,BACKEND,agentContainer,historyToSend);
+    }
+    if(memoryMode&&_finalAnswerText){
+      conversationHistory.push({role:'user',content:task});
+      conversationHistory.push({role:'assistant',content:_finalAnswerText});
+      showFollowup(Math.floor(conversationHistory.length/2));
     }
   }catch(err){
-    if(err.name==='AbortError'){
-      setStatus('Stopped',''); return;
-    }
+    if(err.name==='AbortError'){setStatus('Stopped','');return;}
     setStatus('Error','error');
-    const taskVal=document.getElementById('task-inp')?.value.trim()||'';
-    OUT.innerHTML=`<div class="react-step-card" style="border-left-color:var(--red)">
-      <div class="rsc-header"><span>⚠️</span><span class="rsc-label" style="color:var(--red)">Error</span></div>
-      <div class="rsc-body"><strong>${esc(err.message)}</strong><br><br>
-      Common fixes: switch to a different model · check your OpenRouter key · wait 30s if rate-limited<br><br>
-      <button class="retry-btn" onclick="document.getElementById('task-inp').value=${JSON.stringify(taskVal)};runAgent()">↺ Retry</button>
-      </div></div>`;
+    OUT.innerHTML=`<div class="react-step-card" style="border-left-color:var(--red)"><div class="rsc-header"><span>⚠️</span><span class="rsc-label" style="color:var(--red)">Error</span></div><div class="rsc-body"><strong>${esc(err.message)}</strong><br><br>Try switching models — free models can go offline. <em>OpenRouter Auto Free</em> routes automatically.<br><br><button class="retry-btn" onclick="runAgent()">↺ Retry</button></div></div>`;
   }finally{
-    isRunning=false; _abortCtrl=null;
-    if(btn){btn.disabled=false;} if(ri)ri.textContent='▶'; if(rt)rt.textContent='Run Agent';
+    isRunning=false;_abortCtrl=null;
+    if(btn){btn.disabled=false;}if(ri)ri.textContent='▶';if(rt)rt.textContent='Run Agent';
     if(stopBtn)stopBtn.classList.remove('visible');
   }
 }
