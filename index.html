@@ -508,7 +508,56 @@ strong{color:var(--ink)}
 .react-gif-wrap{margin:2rem 0 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--rule);position:relative;max-width:700px}
 .react-gif{width:100%;display:block}
 .react-gif-credit{position:absolute;bottom:0;right:0;background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:.62rem;padding:.18rem .55rem;border-radius:var(--radius) 0 0 0;letter-spacing:.03em}
+/* ── Stop / run row ───────────────────────────────────────────────────────── */
+.run-row{display:flex;gap:.6rem;align-items:stretch}
+.run-row .run-btn{flex:1}
+.stop-btn{padding:.55rem 1rem;border-radius:11px;border:2px solid #e06c75;background:transparent;color:#e06c75;font-weight:700;cursor:pointer;font-size:.88rem;transition:all .2s;white-space:nowrap;display:none}
+.stop-btn:hover{background:#e06c75;color:#fff}
+.stop-btn.visible{display:block}
+/* ── Copy button on final answer ──────────────────────────────────────────── */
+.copy-btn{margin-left:auto;background:none;border:1px solid var(--rule-strong);border-radius:6px;color:var(--ink-mute);font-size:.7rem;padding:.18rem .55rem;cursor:pointer;transition:all .2s;line-height:1.4}
+.copy-btn:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+.copy-btn.copied{background:#98c379!important;color:#fff!important;border-color:#98c379!important}
+/* ── Collapsible observation ───────────────────────────────────────────────── */
+.obs-preview{white-space:pre-wrap}
+.obs-full{display:none;white-space:pre-wrap;margin-top:.4rem;padding-top:.4rem;border-top:1px dashed var(--rule)}
+.obs-full.open{display:block}
+.obs-toggle{background:none;border:none;color:var(--accent);font-size:.74rem;cursor:pointer;padding:.12rem 0;margin-top:.2rem;display:inline-block}
+/* ── System prompt panel ───────────────────────────────────────────────────── */
+.sys-details{margin-top:.65rem;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.sys-details summary{padding:.45rem .8rem;font-size:.73rem;font-weight:700;color:var(--ink-mute);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.35rem;user-select:none}
+.sys-details summary::-webkit-details-marker{display:none}
+.sys-details[open] summary{border-bottom:1px solid var(--rule)}
+.sys-details-body{padding:.6rem .85rem;font-size:.77rem;color:var(--ink-soft);line-height:1.7;font-family:var(--mono);background:var(--paper-2);white-space:pre-wrap}
+/* ── Retry button ──────────────────────────────────────────────────────────── */
+.retry-btn{margin-top:.65rem;padding:.4rem .9rem;border-radius:8px;border:1px solid var(--accent);background:transparent;color:var(--accent);font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;display:inline-block}
+.retry-btn:hover{background:var(--accent);color:#fff}
+/* ── Card tooltip hint ─────────────────────────────────────────────────────── */
+.card-tip{font-size:.62rem;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink-mute);margin-left:.3rem;opacity:.7;cursor:help}
+/* ── Step counter pill ─────────────────────────────────────────────────────── */
+.step-pill{font-size:.67rem;background:var(--paper-2);border:1px solid var(--rule-strong);border-radius:10px;padding:.1rem .5rem;color:var(--ink-mute);margin-left:.5rem;vertical-align:middle}
+/* ── Markdown final-answer styles ─────────────────────────────────────────── */
+.md-body{white-space:normal!important}
+.md-body p{margin:.45rem 0;color:var(--ink-soft);font-size:.875rem;line-height:1.7}
+.md-body p:first-child{margin-top:0}
+.md-body p:last-child{margin-bottom:0}
+.md-body h1,.md-body h2,.md-body h3,.md-body h4{color:var(--ink);font-weight:700;margin:.9rem 0 .35rem;line-height:1.3}
+.md-body h1{font-size:1.1rem}.md-body h2{font-size:1rem}.md-body h3{font-size:.93rem}.md-body h4{font-size:.875rem}
+.md-body ul,.md-body ol{padding-left:1.4rem;margin:.4rem 0;color:var(--ink-soft);font-size:.875rem;line-height:1.7}
+.md-body li{margin:.2rem 0}
+.md-body strong{color:var(--ink);font-weight:700}
+.md-body em{color:var(--ink-soft);font-style:italic}
+.md-body code{font-family:var(--mono);font-size:.8em;background:var(--paper-2);border:1px solid var(--rule-strong);border-radius:4px;padding:.1em .35em;color:var(--accent)}
+.md-body pre{background:var(--paper-2);border:1px solid var(--rule-strong);border-radius:7px;padding:.75rem 1rem;overflow-x:auto;margin:.5rem 0}
+.md-body pre code{background:none;border:none;padding:0;font-size:.8rem;color:var(--accent)}
+.md-body blockquote{border-left:3px solid var(--gold);margin:.5rem 0;padding:.25rem .75rem;color:var(--ink-mute);font-style:italic}
+.md-body a{color:var(--accent);text-decoration:underline;word-break:break-all}
+.md-body hr{border:none;border-top:1px solid var(--rule);margin:.6rem 0}
+.md-body table{width:100%;border-collapse:collapse;font-size:.8rem;margin:.5rem 0}
+.md-body th,.md-body td{border:1px solid var(--rule-strong);padding:.35rem .6rem;text-align:left}
+.md-body th{background:var(--paper-2);color:var(--ink);font-weight:700}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
 </head>
 <body>
 
@@ -929,7 +978,21 @@ strong{color:var(--ink)}
         <div class="dc-group"><label class="dc-label">🔑 OpenRouter API Key</label><div class="key-row"><input type="password" id="api-key-input" class="dc-input key-inp" placeholder="sk-or-v1-…"/><button class="key-eye" onclick="toggleKey()">👁</button><button class="key-save" onclick="saveKey()">Save</button></div><div class="key-hint" id="key-hint">Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — set a $5 spending limit.</div></div>
         <div class="dc-group"><label class="dc-label">🤖 Model</label><select id="model-sel" class="dc-input dc-select"><option value="google/gemma-4-26b-a4b-it:free">Gemma 4 26B — Google (Free)</option><option value="google/gemma-4-31b-it:free">Gemma 4 31B — Google (Free)</option><option value="qwen/qwen3-next-80b-a3b-instruct:free">Qwen3 80B — Alibaba (Free)</option><option value="openai/gpt-oss-120b:free">GPT OSS 120B — OpenAI (Free)</option><option value="openai/gpt-oss-20b:free">GPT OSS 20B — OpenAI (Free)</option><option value="qwen/qwen3-coder:free">Qwen3 Coder — Alibaba (Free)</option><option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — Meta (Free)</option><option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B — Meta (Free)</option><option value="openrouter/free">OpenRouter Auto Free</option></select></div>
         <div class="dc-group"><label class="dc-label">🎯 Task</label><div class="preset-row"><button class="preset-pill" onclick="usePreset(0)">📊 Research Renewable Energy</button><button class="preset-pill" onclick="usePreset(1)">🐛 Analyze &amp; Debug Code</button><button class="preset-pill" onclick="clearTask()">✏️ Write My Own</button></div><textarea id="task-inp" class="dc-input dc-ta" rows="4" placeholder="Describe a task for the agent…"></textarea></div>
-        <button class="run-btn" id="run-btn" onclick="runAgent()"><span id="run-icon">▶</span><span id="run-text">Run Agent</span></button>
+        <div class="run-row">
+          <button class="run-btn" id="run-btn" onclick="runAgent()"><span id="run-icon">▶</span><span id="run-text">Run Agent</span></button>
+          <button class="stop-btn" id="stop-btn" onclick="stopAgent()">⏹ Stop</button>
+        </div>
+        <details class="sys-details">
+          <summary>⚙️ System Prompt <span style="font-weight:400;font-size:.68rem">(what the agent is told)</span></summary>
+          <div class="sys-details-body">You are a helpful research assistant. Think step-by-step.
+Use web_search to find current, real-world information and always cite URLs.
+Use calculator for any arithmetic. Be concise but thorough.
+
+Available tools:
+• web_search(query)        — real-time web search via Tavily
+• calculator(expression)   — safe math evaluator
+• code_executor(lang,code) — run code in a sandbox (Python, JS, etc.)</div>
+        </details>
       </div>
       <div class="demo-output-wrap">
         <div class="do-header"><span class="do-title">Agent Execution Trace</span><span class="do-status" id="do-status">Ready</span></div>
@@ -1362,6 +1425,12 @@ function renderOut(secs,streaming){
   out.scrollTop=out.scrollHeight;
 }
 function setStatus(t,tp){const e=document.getElementById('do-status');if(e){e.textContent=t;e.className='do-status '+(tp||'');}}
+
+let _abortCtrl = null;
+function stopAgent(){
+  if(_abortCtrl){ _abortCtrl.abort(); _abortCtrl = null; }
+}
+
 async function runAgent(){
   if(isRunning)return;
   let key=document.getElementById('api-key-input')?.value.trim()||localStorage.getItem('or_key')||'';
@@ -1372,22 +1441,27 @@ async function runAgent(){
   if(!task){alert('Enter a task first, or select a preset.');return;}
   isRunning=true;
   const btn=document.getElementById('run-btn');
+  const stopBtn=document.getElementById('stop-btn');
   const ri=document.getElementById('run-icon'),rt=document.getElementById('run-text');
   if(btn)btn.disabled=true;if(ri)ri.textContent='⏳';if(rt)rt.textContent='Running…';
-  setStatus('Running','running');
+  if(stopBtn)stopBtn.classList.add('visible');
+  setStatus('Running · Step 0','running');
   renderOut([],true);
+
   // ── Backend URL: localhost in dev, Railway URL in production ──
   const BACKEND = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:8000/run'
     : 'https://web-production-35721.up.railway.app/run';
 
   const OUT = document.getElementById('demo-output');
+  let _lastCard = {}, _step = 0;
 
-  // Render one structured event from the backend as a step card
-  // tracks the last card per type for text accumulation
-  let _lastCard = {};
-
-  function resetCards(){ _lastCard = {}; }
+  const TIPS = {
+    thought:     'The model is reasoning through the problem before acting',
+    action:      'The model decided to call a tool to get real information',
+    observation: 'The result returned by the tool — fed back to the model',
+    final_answer:'The model\'s synthesised answer after all reasoning steps',
+  };
 
   function renderEvent(ev){
     const META = {
@@ -1398,119 +1472,161 @@ async function runAgent(){
     };
     const m = META[ev.type] || {cls:'', icon:'…', label:'Processing'};
 
-    // ── Reclassify: thought card promoted to final_answer after streaming ──
+    // ── Reclassify: thought → final answer once stream ends ───────────────
     if(ev.type === 'reclassify_last'){
       const card = _lastCard['thought'];
       if(card && card.isConnected){
-        card.classList.remove('card-thought');
-        card.classList.add('card-answer');
-        const icon  = card.querySelector('.rsc-icon');
-        const label = card.querySelector('.rsc-label');
-        if(icon)  icon.textContent  = '🎯';
-        if(label) label.textContent = 'Final Answer';
-        _lastCard['final_answer'] = card;
-        delete _lastCard['thought'];
+        card.classList.remove('card-thought'); card.classList.add('card-answer');
+        const icon=card.querySelector('.rsc-icon'), label=card.querySelector('.rsc-label');
+        if(icon)icon.textContent='🎯'; if(label)label.textContent='Final Answer';
+        // Render markdown
+        const body=card.querySelector('.evc-body');
+        if(body && typeof marked!=='undefined'){
+          const raw=body.textContent;
+          body.innerHTML=marked.parse(raw,{breaks:true,gfm:true});
+          body.classList.add('md-body');
+        }
+        // Add copy button
+        const hdr=card.querySelector('.rsc-header');
+        if(hdr){
+          const cb=document.createElement('button');
+          cb.className='copy-btn'; cb.textContent='⎘ Copy';
+          cb.onclick=()=>{
+            const text=card.querySelector('.evc-body')?.textContent||'';
+            navigator.clipboard.writeText(text).then(()=>{
+              cb.textContent='✓ Copied'; cb.classList.add('copied');
+              setTimeout(()=>{cb.textContent='⎘ Copy';cb.classList.remove('copied');},2000);
+            });
+          };
+          hdr.appendChild(cb);
+        }
+        _lastCard['final_answer']=card; delete _lastCard['thought'];
       }
-      setStatus('Complete ✓','done');
-      return;
+      setStatus('Complete ✓','done'); return;
     }
 
-    // ── Skip malformed action events (token-by-token partial arrivals) ──
-    if(ev.type === 'action' && (!ev.tool || ev.tool.trim() === '')) return;
+    // ── Skip malformed/partial action events ──────────────────────────────
+    if(ev.type==='action' && (!ev.tool||ev.tool.trim()==='')) return;
 
-    // ── Thought / Final Answer: accumulate tokens into ONE card ──────────
-    if(ev.type === 'thought' || ev.type === 'final_answer'){
-      let card = _lastCard[ev.type];
-      if(!card || !card.isConnected){
-        const uid = `evc-${ev.type}-${Date.now()}`;
+    // ── Step counter ──────────────────────────────────────────────────────
+    if(ev.type==='action'){_step++; setStatus(`Running · Step ${_step}`,'running');}
+
+    const tip = TIPS[ev.type]||'';
+
+    // ── Thought / Final Answer: stream tokens into one card ───────────────
+    if(ev.type==='thought'||ev.type==='final_answer'){
+      let card=_lastCard[ev.type];
+      if(!card||!card.isConnected){
+        const uid=`evc-${ev.type}-${Date.now()}`;
         OUT.insertAdjacentHTML('beforeend',
           `<div id="${uid}" class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
              <div class="rsc-header">
                <span class="rsc-icon">${m.icon}</span>
                <span class="rsc-label">${m.label}</span>
+               ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
              </div>
              <div class="rsc-body evc-body"></div>
            </div>`);
-        card = document.getElementById(uid);
-        _lastCard[ev.type] = card;
+        card=document.getElementById(uid); _lastCard[ev.type]=card;
       }
-      const body = card.querySelector('.evc-body');
-      if(body && ev.content) body.textContent += ev.content;
-      if(ev.type === 'final_answer') setStatus('Complete ✓','done');
-      card.scrollIntoView({behavior:'smooth', block:'nearest'});
-      return;
+      const body=card.querySelector('.evc-body');
+      if(body&&ev.content) body.textContent+=ev.content;
+      if(ev.type==='final_answer') setStatus('Complete ✓','done');
+      card.scrollIntoView({behavior:'smooth',block:'nearest'}); return;
     }
 
-    // ── Observation resets the thought accumulator (new cycle starts) ────
-    if(ev.type === 'observation') delete _lastCard['thought'];
+    // ── Observation: collapsible (results can be very long) ───────────────
+    if(ev.type==='observation'){
+      delete _lastCard['thought'];
+      const full = esc(ev.content||'');
+      const preview = full.length>220 ? full.slice(0,220)+'…' : full;
+      const hasMore = full.length>220;
+      const uid = `obs-${Date.now()}`;
+      OUT.insertAdjacentHTML('beforeend',
+        `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
+           <div class="rsc-header">
+             <span class="rsc-icon">${m.icon}</span>
+             <span class="rsc-label">${m.label}</span>
+             ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
+           </div>
+           <div class="rsc-body">
+             <span class="obs-preview">${preview}</span>
+             ${hasMore?`<div class="obs-full" id="${uid}-full">${full}</div>
+               <button class="obs-toggle" onclick="
+                 var f=document.getElementById('${uid}-full');
+                 f.classList.toggle('open');
+                 this.textContent=f.classList.contains('open')?'▲ Show less':'▼ Show full result';
+               ">▼ Show full result</button>`:''}
+           </div>
+         </div>`);
+      OUT.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'}); return;
+    }
 
-    // ── Action: render tool call ─────────────────────────────────────────
+    // ── Action card ───────────────────────────────────────────────────────
     let body;
-    if(ev.type === 'action'){
-      const hasArgs = ev.input && Object.keys(ev.input).length > 0;
-      const argsStr = hasArgs ? JSON.stringify(ev.input) : '…';
-      body = `<div class="rsc-code-block">${esc(ev.tool)}(${esc(argsStr)})</div>`;
+    if(ev.type==='action'){
+      const hasArgs=ev.input&&Object.keys(ev.input).length>0;
+      body=`<div class="rsc-code-block">${esc(ev.tool)}(${esc(hasArgs?JSON.stringify(ev.input):'…')})</div>`;
     } else {
-      body = `<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
+      body=`<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
     }
-
     OUT.insertAdjacentHTML('beforeend',
       `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
          <div class="rsc-header">
            <span class="rsc-icon">${m.icon}</span>
            <span class="rsc-label">${m.label}</span>
+           ${tip?`<span class="card-tip" title="${tip}">ⓘ</span>`:''}
          </div>${body}
        </div>`);
-    OUT.lastElementChild.scrollIntoView({behavior:'smooth', block:'nearest'});
+    OUT.lastElementChild.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
   try{
-    resetCards();
-    // Show typing indicator
+    _lastCard={}; _step=0;
+    _abortCtrl = new AbortController();
     OUT.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Connecting to agent…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
 
     const res = await fetch(BACKEND, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({task, api_key:key, model, max_tokens:1024})
+      method:'POST', signal:_abortCtrl.signal,
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({task,api_key:key,model,max_tokens:1024})
     });
+    if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e?.detail||`Server error: HTTP ${res.status}`);}
 
-    if(!res.ok){
-      const e = await res.json().catch(()=>({}));
-      throw new Error(e?.detail || `Server error: HTTP ${res.status}`);
-    }
-
-    // Clear the typing indicator on first real event
-    let firstEvent = true;
-    const reader = res.body.getReader(), decoder = new TextDecoder();
-    let buf = '';
-
+    let firstEvent=true;
+    const reader=res.body.getReader(), decoder=new TextDecoder();
+    let buf='';
     while(true){
-      const {done, value} = await reader.read();
-      if(done) break;
-      buf += decoder.decode(value, {stream:true});
-      const lines = buf.split('\n\n');
-      buf = lines.pop() || '';
+      const {done,value}=await reader.read(); if(done)break;
+      buf+=decoder.decode(value,{stream:true});
+      const lines=buf.split('\n\n'); buf=lines.pop()||'';
       for(const line of lines){
         if(!line.startsWith('data: ')) continue;
         try{
-          const ev = JSON.parse(line.slice(6));
-          if(ev.type === 'done') break;
-          if(ev.type === 'error') throw new Error(ev.message);
-          if(firstEvent){ OUT.innerHTML=''; firstEvent=false; }
+          const ev=JSON.parse(line.slice(6));
+          if(ev.type==='done') break;
+          if(ev.type==='error') throw new Error(ev.message);
+          if(firstEvent){OUT.innerHTML='';firstEvent=false;}
           renderEvent(ev);
-        }catch(e){ if(e.message) throw e; }
+        }catch(e){if(e.message) throw e;}
       }
     }
   }catch(err){
+    if(err.name==='AbortError'){
+      setStatus('Stopped',''); return;
+    }
     setStatus('Error','error');
+    const taskVal=document.getElementById('task-inp')?.value.trim()||'';
     OUT.innerHTML=`<div class="react-step-card" style="border-left-color:var(--red)">
       <div class="rsc-header"><span>⚠️</span><span class="rsc-label" style="color:var(--red)">Error</span></div>
       <div class="rsc-body"><strong>${esc(err.message)}</strong><br><br>
-      Make sure the backend is running: <code>uvicorn main:app --reload</code><br>
-      Then check your OpenRouter key starts with <code>sk-or-v1-</code></div></div>`;
+      Common fixes: switch to a different model · check your OpenRouter key · wait 30s if rate-limited<br><br>
+      <button class="retry-btn" onclick="document.getElementById('task-inp').value=${JSON.stringify(taskVal)};runAgent()">↺ Retry</button>
+      </div></div>`;
   }finally{
-    isRunning=false;if(btn)btn.disabled=false;if(ri)ri.textContent='▶';if(rt)rt.textContent='Run Agent';
+    isRunning=false; _abortCtrl=null;
+    if(btn){btn.disabled=false;} if(ri)ri.textContent='▶'; if(rt)rt.textContent='Run Agent';
+    if(stopBtn)stopBtn.classList.remove('visible');
   }
 }
 
