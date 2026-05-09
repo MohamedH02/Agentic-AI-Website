@@ -1301,20 +1301,17 @@ const PRESET_TASKS=[
   "Research the main benefits and challenges of renewable energy in Egypt and the Middle East. Provide a structured summary with key data points, current adoption rates, and future outlook.",
   "Analyze the following Python code for bugs, inefficiencies, and improvements:\n\ndef fibonacci(n):\n    if n == 0: return 0\n    result = []\n    a, b = 0, 1\n    for i in range(n):\n        result.append(a)\n        a, b = b, a + b\n    return result\n\nSuggest a more efficient recursive version with memoization.",
 ];
-const SYS_PROMPT=`You are an AI agent demonstrating the ReAct (Reasoning + Acting) pattern.
-Respond in EXACTLY this format with 3-4 cycles:
+const SYS_PROMPT=`You are a ReAct agent. Respond using EXACTLY this format, max 2 cycles:
 
-Thought: [detailed reasoning]
+Thought: [1-2 sentence reasoning]
 Action: tool_name("input")
-Observation: [realistic detailed result — minimum 2 sentences]
-
-[Repeat 2-3 more times]
+Observation: [1-2 sentence result]
 
 Thought: [final synthesis]
-Final Answer: [comprehensive structured response]
+Final Answer: [concise answer, under 150 words]
 
-Tools: web_search, analyze_code, calculate, read_document, write_summary
-Rules: always alternate Thought→Action→Observation, make observations specific, complete 3+ cycles before Final Answer`;
+Tools: web_search, calculator, analyze_code
+Keep ALL sections short. Never exceed 2 Thought/Action/Observation cycles.`;
 
 let isRunning=false;
 function saveKey(){
@@ -1414,7 +1411,7 @@ async function runAgent(){
     const res = await fetch(BACKEND, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({task, api_key:key, model})
+      body: JSON.stringify({task, api_key:key, model, max_tokens:1024})
     });
 
     if(!res.ok){
