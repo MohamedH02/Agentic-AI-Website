@@ -1376,8 +1376,8 @@ async function runAgent(){
   if(btn)btn.disabled=true;if(ri)ri.textContent='⏳';if(rt)rt.textContent='Running…';
   setStatus('Running','running');
   renderOut([],true);
-  // ── Backend URL — change to your Railway URL after deployment ──
-  const BACKEND = 'https://web-production-35721.up.railway.app/run';
+  // ── Backend URL — change to your deployed URL after deployment ──
+  const BACKEND = 'http://localhost:8000/run';
 
   const OUT = document.getElementById('demo-output');
 
@@ -1395,6 +1395,23 @@ async function runAgent(){
       final_answer: {cls:'card-answer',  icon:'🎯', label:'Final Answer'},
     };
     const m = META[ev.type] || {cls:'', icon:'…', label:'Processing'};
+
+    // ── Reclassify: thought card promoted to final_answer after streaming ──
+    if(ev.type === 'reclassify_last'){
+      const card = _lastCard['thought'];
+      if(card && card.isConnected){
+        card.classList.remove('card-thought');
+        card.classList.add('card-answer');
+        const icon  = card.querySelector('.rsc-icon');
+        const label = card.querySelector('.rsc-label');
+        if(icon)  icon.textContent  = '🎯';
+        if(label) label.textContent = 'Final Answer';
+        _lastCard['final_answer'] = card;
+        delete _lastCard['thought'];
+      }
+      setStatus('Complete ✓','done');
+      return;
+    }
 
     // ── Skip malformed action events (token-by-token partial arrivals) ──
     if(ev.type === 'action' && (!ev.tool || ev.tool.trim() === '')) return;
