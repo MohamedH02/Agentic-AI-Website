@@ -1377,7 +1377,7 @@ async function runAgent(){
   setStatus('Running','running');
   renderOut([],true);
   try{
-    const BACKEND='http://localhost:8000/run';
+    const BACKEND='web-production-35721.up.railway.app';
     const res=await fetch(BACKEND,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
