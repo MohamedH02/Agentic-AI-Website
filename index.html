@@ -504,6 +504,8 @@ strong{color:var(--ink)}
 .pat-gif-wrap{margin:1rem 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--rule);position:relative}
 .pat-gif{width:100%;display:block;border-radius:var(--radius)}
 .pat-gif-credit{position:absolute;bottom:0;right:0;background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:.62rem;padding:.18rem .55rem;border-radius:var(--radius) 0 0 0;letter-spacing:.03em}
+/* ReAct section gif */
+.react-gif-wrap{margin:2rem 0 0;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--rule);position:relative;max-width:700px}
 .react-gif{width:100%;display:block}
 .react-gif-credit{position:absolute;bottom:0;right:0;background:rgba(0,0,0,.45);color:rgba(255,255,255,.7);font-size:.62rem;padding:.18rem .55rem;border-radius:var(--radius) 0 0 0;letter-spacing:.03em}
 </style>
@@ -714,6 +716,10 @@ strong{color:var(--ink)}
       </div>
     </div>
     
+    <div class="react-gif-wrap reveal">
+      <img src="https://substackcdn.com/image/fetch/$s_!3vHI!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd02b2eaa-16c3-4f92-8f97-06329fbcccd4_716x550.gif" alt="ReAct Loop Pattern" class="react-gif" loading="lazy"/>
+      <div class="react-gif-credit">Visual: Daily Dose of Data Science</div>
+    </div>
   </div>
 </section>
 
@@ -1376,43 +1382,78 @@ async function runAgent(){
   if(btn)btn.disabled=true;if(ri)ri.textContent='⏳';if(rt)rt.textContent='Running…';
   setStatus('Running','running');
   renderOut([],true);
+  // ── Backend URL — change to your Railway URL after deployment ──
+  const BACKEND = 'web-production-35721.up.railway.app';
+
+  const OUT = document.getElementById('demo-output');
+
+  // Render one structured event from the backend as a step card
+  function renderEvent(ev){
+    const META = {
+      thought:      {cls:'card-thought', icon:'💭', label:'Thought'},
+      action:       {cls:'card-action',  icon:'⚡', label:'Action'},
+      observation:  {cls:'card-obs',     icon:'👁️', label:'Observation'},
+      final_answer: {cls:'card-answer',  icon:'🎯', label:'Final Answer'},
+    };
+    const m = META[ev.type] || {cls:'', icon:'…', label:'Processing'};
+    const body = ev.type === 'action'
+      ? `<div class="rsc-code-block">${esc(ev.tool)}(${esc(JSON.stringify(ev.input))})</div>`
+      : `<div class="rsc-body">${esc(ev.content||'').replace(/\n/g,'<br>')}</div>`;
+    OUT.insertAdjacentHTML('beforeend',
+      `<div class="react-step-card ${m.cls}" style="animation:cardIn .35s ease">
+         <div class="rsc-header">
+           <span class="rsc-icon">${m.icon}</span>
+           <span class="rsc-label">${m.label}</span>
+         </div>${body}
+       </div>`);
+    OUT.lastElementChild.scrollIntoView({behavior:'smooth', block:'nearest'});
+    if(ev.type === 'final_answer') setStatus('Complete ✓','done');
+  }
+
   try{
-    const BACKEND='web-production-35721.up.railway.app';
-    const res=await fetch(BACKEND,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({task,api_key:key,model})
+    // Show typing indicator
+    OUT.innerHTML=`<div class="react-step-card"><div class="rsc-header"><span>🤖</span><span class="rsc-label">Connecting to agent…</span><span class="typing-dots"><span></span><span></span><span></span></span></div></div>`;
+
+    const res = await fetch(BACKEND, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({task, api_key:key, model})
     });
-    if(!res.ok){const e=await res.json();throw new Error(e.detail||`HTTP ${res.status}`);}
-    const reader=res.body.getReader(),decoder=new TextDecoder();
-    let buf='';
+
+    if(!res.ok){
+      const e = await res.json().catch(()=>({}));
+      throw new Error(e?.detail || `Server error: HTTP ${res.status}`);
+    }
+
+    // Clear the typing indicator on first real event
+    let firstEvent = true;
+    const reader = res.body.getReader(), decoder = new TextDecoder();
+    let buf = '';
+
     while(true){
-      const {done,value}=await reader.read();
+      const {done, value} = await reader.read();
       if(done) break;
-      buf+=decoder.decode(value,{stream:true});
-      const lines=buf.split('\n\n');buf=lines.pop()||'';
+      buf += decoder.decode(value, {stream:true});
+      const lines = buf.split('\n\n');
+      buf = lines.pop() || '';
       for(const line of lines){
         if(!line.startsWith('data: ')) continue;
         try{
-          const ev=JSON.parse(line.slice(6));
-          if(ev.type==='done') break;
-          if(ev.type==='error') throw new Error(ev.message);
-          const cls={thought:'card-thought',action:'card-action',observation:'card-obs',final_answer:'card-answer'}[ev.type]||'card-typing';
-          const icon={thought:'💭',action:'⚡',observation:'👁️',final_answer:'🎯'}[ev.type]||'…';
-          const label={thought:'Thought',action:'Action',observation:'Observation',final_answer:'Final Answer'}[ev.type]||'…';
-          const body=ev.type==='action'
-            ?`<div class="rsc-code-block">${ev.tool}(${JSON.stringify(ev.input)})</div>`
-            :`<div class="rsc-body">${(ev.content||'').replace(/\n/g,'<br>')}</div>`;
-          document.getElementById('demo-output').insertAdjacentHTML('beforeend',
-            `<div class="react-step-card ${cls}"><div class="rsc-header"><span class="rsc-icon">${icon}</span><span class="rsc-label">${label}</span></div>${body}</div>`);
-          document.getElementById('demo-output').lastChild.scrollIntoView({behavior:'smooth'});
-        }catch(e){if(e.message) throw e;}
+          const ev = JSON.parse(line.slice(6));
+          if(ev.type === 'done') break;
+          if(ev.type === 'error') throw new Error(ev.message);
+          if(firstEvent){ OUT.innerHTML=''; firstEvent=false; }
+          renderEvent(ev);
+        }catch(e){ if(e.message) throw e; }
       }
     }
-    setStatus('Complete ✓','done');
   }catch(err){
     setStatus('Error','error');
-    document.getElementById('demo-output').innerHTML=`<div class="react-step-card" style="border-left-color:var(--red)"><div class="rsc-header"><span>⚠️</span><span class="rsc-label" style="color:var(--red)">Error</span></div><div class="rsc-body"><strong>${esc(err.message)}</strong><br><br>Fixes: ensure key starts with sk-or-v1-, use a free model, check spending limit at openrouter.ai</div></div>`;
+    OUT.innerHTML=`<div class="react-step-card" style="border-left-color:var(--red)">
+      <div class="rsc-header"><span>⚠️</span><span class="rsc-label" style="color:var(--red)">Error</span></div>
+      <div class="rsc-body"><strong>${esc(err.message)}</strong><br><br>
+      Make sure the backend is running: <code>uvicorn main:app --reload</code><br>
+      Then check your OpenRouter key starts with <code>sk-or-v1-</code></div></div>`;
   }finally{
     isRunning=false;if(btn)btn.disabled=false;if(ri)ri.textContent='▶';if(rt)rt.textContent='Run Agent';
   }
