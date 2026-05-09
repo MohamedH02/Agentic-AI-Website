@@ -927,7 +927,7 @@ strong{color:var(--ink)}
     <div class="demo-wrap">
       <div class="demo-config">
         <div class="dc-group"><label class="dc-label">🔑 OpenRouter API Key</label><div class="key-row"><input type="password" id="api-key-input" class="dc-input key-inp" placeholder="sk-or-v1-…"/><button class="key-eye" onclick="toggleKey()">👁</button><button class="key-save" onclick="saveKey()">Save</button></div><div class="key-hint" id="key-hint">Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — set a $5 spending limit.</div></div>
-        <div class="dc-group"><label class="dc-label">🤖 Model</label><select id="model-sel" class="dc-input dc-select"><option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — Meta (Free)</option><option value="deepseek/deepseek-r1:free">DeepSeek R1 — DeepSeek (Free)</option><option value="deepseek/deepseek-chat-v3-0324:free">DeepSeek V3 — DeepSeek (Free)</option><option value="mistralai/mistral-7b-instruct:free">Mistral 7B — Mistral (Free)</option><option value="qwen/qwen-2.5-72b-instruct:free">Qwen 2.5 72B — Alibaba (Free)</option></select></div>
+        <div class="dc-group"><label class="dc-label">🤖 Model</label><select id="model-sel" class="dc-input dc-select"><option value="google/gemma-4-26b-a4b-it:free">Gemma 4 26B — Google (Free)</option><option value="google/gemma-4-31b-it:free">Gemma 4 31B — Google (Free)</option><option value="qwen/qwen3-next-80b-a3b-instruct:free">Qwen3 80B — Alibaba (Free)</option><option value="openai/gpt-oss-120b:free">GPT OSS 120B — OpenAI (Free)</option><option value="openai/gpt-oss-20b:free">GPT OSS 20B — OpenAI (Free)</option><option value="qwen/qwen3-coder:free">Qwen3 Coder — Alibaba (Free)</option><option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — Meta (Free)</option><option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B — Meta (Free)</option><option value="openrouter/free">OpenRouter Auto Free</option></select></div>
         <div class="dc-group"><label class="dc-label">🎯 Task</label><div class="preset-row"><button class="preset-pill" onclick="usePreset(0)">📊 Research Renewable Energy</button><button class="preset-pill" onclick="usePreset(1)">🐛 Analyze &amp; Debug Code</button><button class="preset-pill" onclick="clearTask()">✏️ Write My Own</button></div><textarea id="task-inp" class="dc-input dc-ta" rows="4" placeholder="Describe a task for the agent…"></textarea></div>
         <button class="run-btn" id="run-btn" onclick="runAgent()"><span id="run-icon">▶</span><span id="run-text">Run Agent</span></button>
       </div>
@@ -1367,7 +1367,7 @@ async function runAgent(){
   let key=document.getElementById('api-key-input')?.value.trim()||localStorage.getItem('or_key')||'';
   const inp=document.getElementById('api-key-input');if(!key&&inp){const s=localStorage.getItem('or_key');if(s){inp.value=s;key=s;}}
   if(!key||!key.startsWith('sk-or')){alert('Enter your OpenRouter API key first.\nGet one free at openrouter.ai/keys');return;}
-  const model=document.getElementById('model-sel')?.value||'meta-llama/llama-3.3-70b-instruct:free';
+  const model=document.getElementById('model-sel')?.value||'google/gemma-4-31b-it:free';
   const task=document.getElementById('task-inp')?.value.trim();
   if(!task){alert('Enter a task first, or select a preset.');return;}
   isRunning=true;
