@@ -537,12 +537,6 @@ strong{color:var(--ink)}
       <li><a href="#demo">Demo</a></li>
       <li><a href="#glossary">Glossary</a></li>
     </ul>
-    <div class="palette-switcher">
-      <button class="pal-btn active" data-pal="cumulus" title="Cumulus" style="background:#9d8cd6"></button>
-      <button class="pal-btn" data-pal="vellum" title="Vellum" style="background:#a991c4"></button>
-      <button class="pal-btn" data-pal="periwinkle" title="Periwinkle" style="background:#7e6cc7"></button>
-      <button class="pal-btn" data-pal="atlas" title="Atlas" style="background:#4a86b4"></button>
-    </div>
     <div class="palette-switcher" id="palette-switcher">
         <button class="pal-btn active" data-pal="cumulus" title="Cumulus" style="background:#9d8cd6"></button>
         <button class="pal-btn" data-pal="vellum" title="Vellum" style="background:#a991c4"></button>
@@ -919,7 +913,10 @@ strong{color:var(--ink)}
       <div class="concept-card reveal"><div class="concept-header"><div class="concept-title">Concept 2 — Nodes &amp; Edges</div><span class="concept-num">02</span></div><div class="concept-desc"><strong>Nodes</strong> receive the full state and return only changed fields. <strong>Conditional edges</strong> call a routing function that returns the next node's name based on state — this is how the ReAct loop is expressed as a graph.</div><div class="key-point"><strong>The ReAct loop:</strong> Agent → (if tool_calls) → Tool → back to Agent. Expressed as graph edges rather than a while loop — making it interruptible.</div></div>
       <div class="concept-card reveal"><div class="concept-header"><div class="concept-title">Concept 3 — Checkpointing &amp; HITL</div><span class="concept-num">03</span></div><div class="concept-desc"><strong>Checkpointers</strong> save the complete graph state after each node, enabling pause/resume. This powers <strong>Human-in-the-Loop</strong>: the graph pauses for a human to review a proposed action, then resumes with their decision.</div><div class="key-point"><strong>Production rule:</strong> Any agent that sends emails, deletes files, or executes transactions must have a human approval node with checkpointing.</div></div>
       <div class="concept-card reveal"><div class="concept-header"><div class="concept-title">LangChain vs LangGraph</div></div><table class="ct" style="margin-top:.5rem"><thead><tr><th>Scenario</th><th>Use</th><th>Why</th></tr></thead><tbody><tr><td>RAG pipeline or summarization</td><td>LangChain</td><td>Linear flow, no loops needed</td></tr><tr><td>Simple ReAct agent</td><td>LangChain</td><td>AgentExecutor handles the loop</td></tr><tr><td>Agent that loops many times</td><td>LangGraph</td><td>Full control over cycle logic</td></tr><tr><td>Multi-agent collaboration</td><td>LangGraph</td><td>Native shared state</td></tr><tr><td>Human approval before actions</td><td>LangGraph</td><td>Built-in interrupt + checkpointing</td></tr></tbody></table></div>
-    </div>n>
+    </div>
+
+  </div>
+</section>
 
 <!-- ═══ DEMO ═══ -->
 <section id="demo" class="section dark-sec">
@@ -1099,7 +1096,7 @@ function initReveal() {
 }
 window.addEventListener('scroll',()=>{
   const n=document.getElementById('navbar');
-  if(n) n.style.background=window.scrollY>20?'rgba(245,239,228,.97)':'rgba(245,239,228,.9)';
+  if(n) n.style.background=window.scrollY>20?'rgba(245,239,228,.65)':'rgba(245,239,228,.55)';
 });
 
 // ── 4. ANATOMY ─────────────────────────────────────────────────────────────────
@@ -1383,7 +1380,7 @@ async function runAgent(){
   setStatus('Running','running');
   renderOut([],true);
   // ── Backend URL — change to your Railway URL after deployment ──
-  const BACKEND = 'web-production-35721.up.railway.app';
+  const BACKEND = 'https://web-production-35721.up.railway.app/run';
 
   const OUT = document.getElementById('demo-output');
 
