@@ -710,6 +710,10 @@ strong{color:var(--ink)}
       </div>
     </div>
     
+    <div class="react-gif-wrap reveal">
+      <img src="https://substackcdn.com/image/fetch/$s_!3vHI!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fd02b2eaa-16c3-4f92-8f97-06329fbcccd4_716x550.gif" alt="ReAct Loop Pattern" class="react-gif" loading="lazy"/>
+      <div class="react-gif-credit">Visual: Daily Dose of Data Science</div>
+    </div>
   </div>
 </section>
 
@@ -923,7 +927,7 @@ strong{color:var(--ink)}
     <div class="demo-wrap">
       <div class="demo-config">
         <div class="dc-group"><label class="dc-label">🔑 OpenRouter API Key</label><div class="key-row"><input type="password" id="api-key-input" class="dc-input key-inp" placeholder="sk-or-v1-…"/><button class="key-eye" onclick="toggleKey()">👁</button><button class="key-save" onclick="saveKey()">Save</button></div><div class="key-hint" id="key-hint">Get a free key at <a href="https://openrouter.ai/keys" target="_blank">openrouter.ai/keys</a> — set a $5 spending limit.</div></div>
-        <div class="dc-group"><label class="dc-label">🤖 Model</label><select id="model-sel" class="dc-input dc-select"><option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — Meta (Free)</option><option value="google/gemma-3-27b-it:free">Gemma 3 27B — Google (Free)</option></select></div>
+        <div class="dc-group"><label class="dc-label">🤖 Model</label><select id="model-sel" class="dc-input dc-select"><option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B — Meta (Free)</option><option value="deepseek/deepseek-r1:free">DeepSeek R1 — DeepSeek (Free)</option><option value="deepseek/deepseek-chat-v3-0324:free">DeepSeek V3 — DeepSeek (Free)</option><option value="mistralai/mistral-7b-instruct:free">Mistral 7B — Mistral (Free)</option><option value="qwen/qwen-2.5-72b-instruct:free">Qwen 2.5 72B — Alibaba (Free)</option></select></div>
         <div class="dc-group"><label class="dc-label">🎯 Task</label><div class="preset-row"><button class="preset-pill" onclick="usePreset(0)">📊 Research Renewable Energy</button><button class="preset-pill" onclick="usePreset(1)">🐛 Analyze &amp; Debug Code</button><button class="preset-pill" onclick="clearTask()">✏️ Write My Own</button></div><textarea id="task-inp" class="dc-input dc-ta" rows="4" placeholder="Describe a task for the agent…"></textarea></div>
         <button class="run-btn" id="run-btn" onclick="runAgent()"><span id="run-icon">▶</span><span id="run-text">Run Agent</span></button>
       </div>
